@@ -2,3 +2,5 @@
 !/.gitignore
 !/portfolio*.html
 !/portfolio*.pdf
+!/apps-script/
+!/apps-script/Code.gs
