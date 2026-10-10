@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketing PM Portfolio · Notefolio Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#111;--sub:#767676;--line:#ececec;--soft:#f6f6f6;--pt:#00c37a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:28px}
+
+/* top bar */
+header.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:900;font-size:20px;letter-spacing:-.04em}
+.logo i{font-style:normal;color:var(--pt)}
+header.top nav{display:flex;gap:26px;font-size:14.5px;font-weight:500}
+header.top nav a:hover{color:var(--pt)}
+@media(max-width:700px){header.top nav a:not(:last-child){display:none}}
+
+/* profile */
+.profile{padding-block:56px 36px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center}
+.avatar{width:104px;height:104px;border-radius:50%;background:linear-gradient(135deg,#00c37a,#7ee8bd);display:grid;place-items:center;color:#fff;font-size:40px;font-weight:900}
+.profile h1{margin:0 0 6px;font-size:clamp(24px,3.4vw,34px);letter-spacing:-.04em;line-height:1.3}
+.profile p{margin:0;color:var(--sub);font-size:15px;max-width:620px}
+.stats{display:flex;gap:30px;text-align:center}
+.stats b{display:block;font-size:24px;letter-spacing:-.03em}
+.stats span{font-size:12.5px;color:var(--sub)}
+.cta{display:inline-block;margin-top:16px;padding:10px 20px;background:var(--ink);color:#fff;border-radius:99px;font-size:14px;font-weight:700}
+@media(max-width:860px){.profile{grid-template-columns:auto 1fr}.stats{grid-column:1/-1}}
+
+/* tabs */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;padding-block:14px;border-block:1px solid var(--line);margin-bottom:30px}
+.tabs button{font:inherit;font-size:14.5px;font-weight:500;padding:8px 18px;border-radius:99px;border:0;background:transparent;color:var(--sub);cursor:pointer}
+.tabs button:hover{background:var(--soft);color:var(--ink)}
+.tabs button.on{background:var(--ink);color:#fff}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px 22px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){.grid{grid-template-columns:repeat(2,1fr);gap:22px 14px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+.item{cursor:pointer}
+.item.hide{display:none}
+.thumb{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;display:grid;place-items:center;font-size:54px;transition:.25s}
+.thumb::after{content:attr(data-label);position:absolute;inset:auto 0 0 0;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.55));color:#fff;font-size:13px;font-weight:500;opacity:0;transition:.25s}
+.item:hover .thumb{transform:translateY(-4px);box-shadow:0 16px 30px -14px rgba(0,0,0,.35)}
+.item:hover .thumb::after{opacity:1}
+.item h3{margin:12px 0 2px;font-size:15.5px;letter-spacing:-.02em;line-height:1.4}
+.item .meta{font-size:13px;color:var(--sub)}
+
+/* sections */
+section.blk{padding-block:76px 10px}
+section.blk h2{font-size:24px;letter-spacing:-.04em;margin:0 0 6px}
+section.blk .desc{color:var(--sub);font-size:14.5px;margin:0 0 28px}
+.rows{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)}
+.row .when{font-size:14px;color:var(--sub);font-weight:500}
+.row h3{margin:0 0 2px;font-size:19px;letter-spacing:-.03em}
+.row .role{font-size:14px;color:var(--pt);font-weight:700;margin-bottom:10px}
+.row ul{margin:0;padding-left:18px;font-size:14.5px;color:#444}
+.row li{margin-bottom:4px}
+@media(max-width:700px){.row{grid-template-columns:1fr;gap:6px}}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px}
+.three h3{font-size:14px;color:var(--sub);margin:0 0 12px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:6px 13px;border-radius:99px;background:var(--soft);font-size:13.5px}
+.plain{list-style:none;margin:0;padding:0;font-size:14.5px}
+.plain li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.plain span{color:var(--sub);font-size:13px;white-space:nowrap}
+
+footer{margin-top:90px;border-top:1px solid var(--line);padding-block:44px;text-align:center}
+footer h2{margin:0 0 8px;font-size:22px;letter-spacing:-.04em}
+footer p{margin:0 0 18px;color:var(--sub);font-size:14.5px}
+footer .links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+footer .links a{padding:10px 20px;border-radius:99px;border:1px solid var(--ink);font-size:14px;font-weight:700}
+footer .links a:first-child{background:var(--ink);color:#fff}
+footer small{display:block;margin-top:30px;color:#aaa;font-size:12.5px}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:16px;max-width:620px;width:100%;overflow:hidden;max-height:90vh;overflow-y:auto}
+.sheet .hero{height:200px;display:grid;place-items:center;font-size:72px}
+.sheet .in{padding:28px 30px 32px}
+.sheet .cat{font-size:13px;color:var(--pt);font-weight:700}
+.sheet h3{margin:4px 0 12px;font-size:22px;letter-spacing:-.03em;line-height:1.4}
+.sheet p{margin:0 0 18px;color:#444;font-size:15px}
+.sheet .tg{display:flex;gap:8px;flex-wrap:wrap}
+.sheet .close{margin-top:24px;width:100%;padding:13px;border:0;border-radius:10px;background:var(--ink);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="#">PM<i>.</i>folio</a>
+  <nav><a href="#works">Works</a><a href="#career">Career</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<main class="wrap">
+
+  <div class="profile">
+    <div class="avatar">H</div>
+    <div>
+      <h1>현장을 아는 마케터,<br>데이터로 증명합니다</h1>
+      <p>치과 임상에서 한의원 49개 지점 서비스 기획, 병·의원 퍼포먼스 마케팅까지. 현장의 경험을 체계적인 기획으로 풀어내는 Marketing PM입니다.</p>
+      <a class="cta" href="#contact">연락하기</a>
+    </div>
+    <div class="stats">
+      <div><b>10</b><span>Projects</span></div>
+      <div><b>49</b><span>지점 운영 경험</span></div>
+      <div><b>2년+</b><span>Marketing PM</span></div>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="on" data-f="all">전체</button>
+    <button data-f="ad">광고·마케팅</button>
+    <button data-f="data">데이터 분석</button>
+    <button data-f="manual">매뉴얼·기획</button>
+    <button data-f="ai">AI 활용</button>
+  </div>
+
+  <div class="grid" id="works">
+    <div class="item" data-c="ad" data-i="0"><div class="thumb" style="background:linear-gradient(135deg,#2f5bff,#8aa4ff)" data-label="병·의원 유입 확대">📣</div><h3>온라인 마케팅 (병·의원 퍼포먼스)</h3><div class="meta">광고·마케팅</div></div>
+    <div class="item" data-c="data ad" data-i="1"><div class="thumb" style="background:linear-gradient(135deg,#0ea5a4,#6ee7d3)" data-label="광고 성과 인사이트">📈</div><h3>Meta 광고 데이터 분석과 GPT 시각화</h3><div class="meta">데이터 분석</div></div>
+    <div class="item" data-c="data" data-i="2"><div class="thumb" style="background:linear-gradient(135deg,#7c3aed,#b79cff)" data-label="성과 측정 체계">🔎</div><h3>GA4 애널리틱스 · 구글 도구 활용 성과 분석</h3><div class="meta">데이터 분석</div></div>
+    <div class="item" data-c="data" data-i="3"><div class="thumb" style="background:linear-gradient(135deg,#f59e0b,#fde08a)" data-label="Python · SQL · Flask">💳</div><h3>소비분석을 통한 카드추천 서비스</h3><div class="meta">데이터 분석</div></div>
+    <div class="item" data-c="data" data-i="4"><div class="thumb" style="background:linear-gradient(135deg,#ef4444,#fda4a4)" data-label="텍스트마이닝">📰</div><h3>뉴스 크롤링을 통한 트렌드 분석</h3><div class="meta">데이터 분석</div></div>
+    <div class="item" data-c="manual ad" data-i="5"><div class="thumb" style="background:linear-gradient(135deg,#1b1b1f,#60606b)" data-label="업무 퀄리티 평준화">⚙️</div><h3>원업 광고 세팅 매뉴얼 · 마케팅 업무 매뉴얼</h3><div class="meta">매뉴얼·기획</div></div>
+    <div class="item" data-c="manual" data-i="6"><div class="thumb" style="background:linear-gradient(135deg,#16a34a,#8be3ab)" data-label="치과 운영 매뉴얼">🦷</div><h3>[치과] GDAJ 업무 매뉴얼 제작</h3><div class="meta">매뉴얼·기획</div></div>
+    <div class="item" data-c="manual" data-i="7"><div class="thumb" style="background:linear-gradient(135deg,#ff7a45,#ffbc9a)" data-label="신규지점 총괄 OJT">🏯</div><h3>광덕안정 오픈지원 안내 매뉴얼</h3><div class="meta">매뉴얼·기획</div></div>
+    <div class="item" data-c="ai" data-i="8"><div class="thumb" style="background:linear-gradient(135deg,#db2777,#f9a8d4)" data-label="생성형 AI 실습">🎨</div><h3>AI를 통해 비슷하게 이미지 생성하기</h3><div class="meta">AI 활용</div></div>
+    <div class="item" data-c="ai" data-i="9"><div class="thumb" style="background:linear-gradient(135deg,#0f172a,#3b5bff)" data-label="Claude Code 활용">🤖</div><h3>바이브코딩 · 생성형 AI 실무 자동화</h3><div class="meta">AI 활용</div></div>
+  </div>
+
+  <section class="blk" id="career">
+    <h2>Career</h2><p class="desc">경력 요약</p>
+    <div class="rows">
+      <div class="row"><div class="when">2024.04 ~ 2026.05</div><div>
+        <h3>원업크리에이티브</h3><div class="role">Marketing PM</div>
+        <ul>
+          <li>네이버·구글·당근마켓 매체별 광고 세팅·운영, 병·의원 유입 극대화</li>
+          <li>블로그/플레이스·인스타그램·유튜브 등 브랜드 채널 관리</li>
+          <li>치과·피부과·내과·동물병원 등 개원 및 기존 병·의원 마케팅 컨설팅</li>
+          <li>GPT 활용 의료 보도자료 작성 프로세스 단축, 신입 OJT 및 운영 매뉴얼 제작</li>
+        </ul></div></div>
+      <div class="row"><div class="when">2022.04 ~ 2023.05</div><div>
+        <h3>광덕안정 한의원</h3><div class="role">서비스기획 · 서비스강화팀 / 지점 슈퍼바이저</div>
+        <ul>
+          <li>신규지점 오픈 교육·현장 지원, 총괄 OJT 매뉴얼 제작</li>
+          <li>서비스 모니터링 기준 수립·운영, 1:1 피드백</li>
+          <li>49개 지점 활성화 프로그램: VIP 'Rock-in', MOT 수립</li>
+          <li>부진지점 개선 프로젝트, 사내카페 '리프레자' 기획·운영</li>
+        </ul></div></div>
+      <div class="row"><div class="when">2021.08 ~ 2022.01</div><div>
+        <h3>암사도시재생사회적협동조합</h3><div class="role">상상나루 카페래 · 프리랜서</div>
+        <ul><li>친환경 카페 기획 및 운영관리</li></ul></div></div>
+      <div class="row"><div class="when">2017.06 ~ 2021.03</div><div>
+        <h3>치과 임상 (치과위생사)</h3><div class="role">건강한마을치과의원 · 샬롬치과 · 사랑의 치과</div>
+        <ul><li>환자 응대와 진료 프로세스 이해, 현재 의료 마케팅의 기반</li></ul></div></div>
+    </div>
+  </section>
+
+  <section class="blk" id="skills">
+    <h2>Skills</h2><p class="desc">스킬 · 자격 · 교육</p>
+    <div class="three">
+      <div><h3>HARD SKILLS</h3><div class="chips"><span class="chip">SQL</span><span class="chip">데이터 분석</span><span class="chip">Flask</span><span class="chip">GA4</span><span class="chip">퍼포먼스 광고</span></div>
+        <h3 style="margin-top:22px">SOFT SKILLS</h3><div class="chips"><span class="chip">커뮤니케이션</span><span class="chip">꼼꼼함</span><span class="chip">교육</span><span class="chip">스케줄링</span></div>
+        <h3 style="margin-top:22px">TOOLS</h3><div class="chips"><span class="chip">Oracle</span><span class="chip">Python</span><span class="chip">VS Code</span><span class="chip">PowerPoint</span><span class="chip">Excel</span><span class="chip">Word</span></div></div>
+      <div><h3>자격증</h3><ul class="plain">
+        <li>치과위생사 <span>2015.11</span></li>
+        <li>ITQ 아래한글 A등급 <span>2021.06</span></li>
+        <li>ITQ 한글엑셀 A등급 <span>2021.06</span></li>
+        <li>ITQ 한글파워포인트 A등급 <span>2021.06</span></li>
+        <li>2종 보통운전면허 <span>2011.11</span></li></ul></div>
+      <div><h3>학력 · 교육</h3><ul class="plain">
+        <li>국가평생교육진흥원대학교 <span>2022.03 ~</span></li>
+        <li>진주보건대학교 <span>2012 ~ 2015</span></li>
+        <li>ITWILL 데이터 분석 과정 <span>SQL·Python·R</span></li>
+        <li>윈스펙 생성형 AI 마케팅 13기 <span>2025.12 ~ 2026.01</span></li></ul></div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact"><div class="wrap">
+  <h2>함께 일하고 싶으시다면</h2>
+  <p>서울 광진구 · heee6688@naver.com</p>
+  <div class="links">
+    <a href="mailto:heee6688@naver.com">이메일 보내기</a>
+    <a href="https://blog.naver.com/heee6688" target="_blank" rel="noopener">Naver Blog</a>
+    <a href="https://www.instagram.com/924is92" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <small>© 2026 Marketing Portfolio</small>
+</div></footer>
+
+<div class="modal" id="modal"><div class="sheet">
+  <div class="hero" id="mHero"></div>
+  <div class="in"><div class="cat" id="mCat"></div><h3 id="mTitle"></h3><p id="mDesc"></p><div class="tg" id="mTags"></div>
+  <button class="close" id="mClose">닫기</button></div>
+</div></div>
+
+<script>
+const D=[
+ ["광고·마케팅","온라인 마케팅 (병·의원 퍼포먼스)","네이버·구글·당근마켓 광고 세팅과 운영, 블로그·플레이스·인스타·유튜브 채널 관리를 통해 병·의원 유입을 확대했습니다.",["네이버","구글","당근마켓","채널 관리"]],
+ ["데이터 분석","Meta 광고 데이터 분석과 GPT 시각화","Meta 광고 성과 데이터를 분석하고 GPT로 시각화해 인사이트를 도출했습니다.",["Meta 광고","GPT","시각화"]],
+ ["데이터 분석","GA4 애널리틱스 · 구글 도구 활용 성과 분석","GA4 세팅과 SEO·GA 학습을 바탕으로 마케팅 성과 측정 체계를 정리했습니다.",["GA4","SEO"]],
+ ["데이터 분석","소비분석을 통한 카드추천 서비스","소비 데이터를 분석해 맞춤 카드를 추천하는 서비스를 구현했습니다.",["Python","SQL","Flask"]],
+ ["데이터 분석","뉴스 크롤링을 통한 트렌드 분석","뉴스 데이터를 수집하고 텍스트마이닝으로 트렌드 키워드를 파악했습니다.",["크롤링","텍스트마이닝","Python"]],
+ ["매뉴얼·기획","원업 광고 세팅 매뉴얼 · 마케팅 업무 매뉴얼","광고 세팅과 마케팅 업무 프로세스를 문서화해 팀 업무 퀄리티를 평준화했습니다.",["매뉴얼","OJT","프로세스"]],
+ ["매뉴얼·기획","[치과] GDAJ 업무 매뉴얼 제작","치과 현장 업무 흐름을 정리한 운영 매뉴얼을 제작했습니다.",["치과","운영 매뉴얼"]],
+ ["매뉴얼·기획","광덕안정 오픈지원 안내 매뉴얼","신규지점 오픈 교육과 현장 지원을 위한 총괄 OJT 매뉴얼을 제작했습니다.",["한의원","오픈지원","OJT"]],
+ ["AI 활용","AI를 통해 비슷하게 이미지 생성하기","생성형 AI로 레퍼런스와 유사한 마케팅 이미지를 만드는 실습입니다.",["생성형 AI","이미지"]],
+ ["AI 활용","바이브코딩 · 생성형 AI 실무 자동화","Claude Code 등 생성형 AI로 실무 업무를 자동화·고도화하는 학습과 적용입니다.",["Claude Code","자동화"]]
+];
+const items=[...document.querySelectorAll('.item')],modal=document.getElementById('modal');
+document.getElementById('tabs').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  items.forEach(i=>i.classList.toggle('hide',b.dataset.f!=='all'&&!i.dataset.c.split(' ').includes(b.dataset.f)));
+});
+items.forEach(el=>el.addEventListener('click',()=>{
+  const d=D[el.dataset.i],t=el.querySelector('.thumb');
+  mHero.style.background=t.style.background;mHero.textContent=t.textContent;
+  mCat.textContent=d[0];mTitle.textContent=d[1];mDesc.textContent=d[2];
+  mTags.innerHTML=d[3].map(x=>'<span class="chip">'+x+'</span>').join('');
+  modal.classList.add('open');
+}));
+const close=()=>modal.classList.remove('open');
+mClose.onclick=close;modal.addEventListener('click',e=>{if(e.target===modal)close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+</script>
+</body>
+</html>

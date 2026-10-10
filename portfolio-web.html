@@ -1,0 +1,237 @@
+<title>Marketing PM Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* Layout: one message per section, wide margins, large type, quiet blue accent (Toss-like minimal) */
+:root{
+  --bg:#ffffff; --bg-alt:#f2f4f6; --ink:#191f28; --sub:#6b7684; --faint:#8b95a1;
+  --line:#e5e8eb; --line-alt:#dde1e5; --blue:#3182f6; --blue-dark:#1b64da; --chip:#f2f4f6; --chip-alt:#ffffff;
+  --nav:rgba(255,255,255,.88); --inv-bg:#191f28; --inv-fg:#ffffff;
+  --font:'Noto Sans KR',system-ui,-apple-system,'Segoe UI','Malgun Gothic',sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17171c; --bg-alt:#202027; --ink:#f2f4f6; --sub:#a4acb6; --faint:#8b95a1;
+  --line:#2c2d35; --line-alt:#34353e; --blue:#4593fc; --blue-dark:#6aa8ff; --chip:#202027; --chip-alt:#2a2b34;
+  --nav:rgba(23,23,28,.88); --inv-bg:#f2f4f6; --inv-fg:#17171c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17171c; --bg-alt:#202027; --ink:#f2f4f6; --sub:#a4acb6; --faint:#8b95a1;
+  --line:#2c2d35; --line-alt:#34353e; --blue:#4593fc; --blue-dark:#6aa8ff; --chip:#202027; --chip-alt:#2a2b34;
+  --nav:rgba(23,23,28,.88); --inv-bg:#f2f4f6; --inv-fg:#17171c; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:880px;margin-inline:auto;padding-inline:20px}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--nav);backdrop-filter:blur(12px)}
+nav .wrap{max-width:1080px;display:flex;justify-content:space-between;align-items:center;height:60px}
+nav b{font-weight:900;letter-spacing:-.03em}
+nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14.5px;color:var(--sub);font-weight:500}
+nav ul a:hover{color:var(--ink)}
+@media(max-width:640px){
+  nav .wrap{gap:16px}
+  nav b{flex:none}
+  nav ul{gap:18px;overflow-x:auto;white-space:nowrap;min-width:0;scrollbar-width:none;padding-block:8px}
+  nav ul::-webkit-scrollbar{display:none}
+  nav ul a{display:block;padding-block:6px}
+}
+
+.screen{padding-block:clamp(72px,12vw,130px)}
+.screen.alt{background:var(--bg-alt)}
+.label{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:18px}
+h1,h2{margin:0;font-weight:900;letter-spacing:-.045em;line-height:1.3;text-wrap:balance}
+h1{font-size:clamp(36px,7.5vw,72px)}
+h2{font-size:clamp(28px,5.4vw,52px)}
+h1 em,h2 em{font-style:normal;color:var(--blue)}
+.lead{margin:26px 0 0;font-size:clamp(16px,2.2vw,21px);color:var(--sub);max-width:36em;line-height:1.75}
+.cta{display:inline-block;margin-top:40px;padding:16px 30px;border-radius:14px;background:var(--blue);color:#fff;font-weight:700;font-size:16px;transition:background .2s}
+.cta:hover{background:var(--blue-dark)}
+
+.facts{margin-top:56px}
+.fact{display:grid;grid-template-columns:130px minmax(0,1fr);gap:20px;padding:22px 0;border-top:1px solid var(--line)}
+.alt .fact{border-color:var(--line-alt)}
+.fact:last-child{border-bottom:1px solid var(--line)}
+.alt .fact:last-child{border-bottom-color:var(--line-alt)}
+.fact .k{color:var(--faint);font-size:15px;font-weight:500}
+.fact .v{font-size:17px;font-weight:500}
+.fact .v small{display:block;color:var(--sub);font-weight:400;font-size:15px;margin-top:2px}
+@media(max-width:560px){.fact{grid-template-columns:1fr;gap:2px}}
+
+.num{margin-top:56px;display:flex;gap:28px 56px;flex-wrap:wrap}
+.num b{display:block;font-size:clamp(44px,8vw,76px);font-weight:900;letter-spacing:-.05em;line-height:1.1;font-variant-numeric:tabular-nums}
+.num span{color:var(--sub);font-size:15px;display:block;max-width:14em}
+
+.plist{margin-top:52px;border-top:1px solid var(--line-alt)}
+.pi{display:grid;grid-template-columns:80px minmax(0,1fr);gap:20px;padding:22px 0;border-bottom:1px solid var(--line-alt)}
+.pi .c{color:var(--blue);font-size:14px;font-weight:700;padding-top:3px}
+.pi h3{margin:0 0 4px;font-size:18px;letter-spacing:-.02em;line-height:1.45}
+.pi p{margin:0;color:var(--sub);font-size:15px}
+@media(max-width:560px){.pi{grid-template-columns:1fr;gap:2px}}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{padding:9px 16px;border-radius:99px;background:var(--chip);font-size:15px;font-weight:500}
+.alt .chip{background:var(--chip-alt)}
+.sk h3{margin:40px 0 0;font-size:15px;color:var(--faint);font-weight:500}
+
+.end{text-align:center}
+.end .lead{margin-inline:auto}
+.mail{margin-top:30px;display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.mail code{font:inherit;font-size:20px;font-weight:700;user-select:all}
+.mail button{font:inherit;font-size:14px;font-weight:700;padding:9px 16px;border-radius:10px;border:0;background:var(--bg-alt);color:var(--ink);cursor:pointer}
+.mail button:hover{background:var(--line)}
+.links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.links a{padding:15px 26px;border-radius:14px;background:var(--bg-alt);font-weight:700;font-size:15px}
+.links a:hover{background:var(--line)}
+footer{text-align:center;padding:36px 20px 52px;color:var(--faint);font-size:13px}
+</style>
+
+<nav><div class="wrap">
+  <b>Marketing PM</b>
+  <ul><li><a href="#why">소개</a></li><li><a href="#career">경력</a></li><li><a href="#case1">대표 사례</a></li><li><a href="#projects">프로젝트</a></li><li><a href="#skills">스킬</a></li><li><a href="#contact">연락</a></li></ul>
+</div></nav>
+
+<section class="screen"><div class="wrap">
+  <div class="label">Marketing PM · Performance Marketer</div>
+  <h1>현장을 아는 마케터,<br><em>데이터로 증명</em>합니다.</h1>
+  <p class="lead">치과 임상에서 시작해 한의원 서비스 기획, 병·의원 퍼포먼스 마케팅까지. 현장의 경험을 체계적인 기획으로 풀어냅니다.</p>
+  <a class="cta" href="#case1">대표 사례 보기</a>
+</div></section>
+
+<section class="screen alt" id="why"><div class="wrap">
+  <div class="label">Why me</div>
+  <h2>의료 현장을 알기에,<br>실행 가능한 <em>전략</em>을 만듭니다.</h2>
+  <p class="lead">치과위생사로 일한 경험과 한의원 지점 운영 경험 덕분에, 환자의 방문 전부터 방문 후까지 고객 여정을 이해하고 마케팅에 반영합니다.</p>
+</div></section>
+
+<section class="screen"><div class="wrap">
+  <div class="label">Experience</div>
+  <h2>병·의원 마케팅을<br><em>2년 넘게</em> 운영했습니다.</h2>
+  <div class="num">
+    <div><b>2년+</b><span>Marketing PM</span></div>
+    <div><b>49개</b><span>한의원 지점 활성화 프로그램</span></div>
+    <div><b>4개</b><span>진료과 컨설팅 (치과·피부과·내과·동물병원)</span></div>
+  </div>
+</div></section>
+
+<section class="screen alt" id="career"><div class="wrap">
+  <div class="label">Career</div>
+  <h2>일해 온 길.</h2>
+  <div class="facts">
+    <div class="fact"><div class="k">2024.04 ~ 2026.05</div><div class="v">원업크리에이티브 · Marketing PM<small>네이버·구글·당근 광고 운영, 채널 관리, 병·의원 마케팅 컨설팅, OJT·운영 매뉴얼 제작</small></div></div>
+    <div class="fact"><div class="k">2022.04 ~ 2023.05</div><div class="v">광덕안정 한의원 · 서비스기획 / 슈퍼바이저<small>신규지점 오픈 교육·지원, 서비스 모니터링, 49개 지점 활성화 프로그램, 사내카페 운영</small></div></div>
+    <div class="fact"><div class="k">2021.08 ~ 2022.01</div><div class="v">암사도시재생사회적협동조합<small>상상나루 카페래 · 친환경 카페 기획 및 운영관리 (프리랜서)</small></div></div>
+    <div class="fact"><div class="k">2017.06 ~ 2021.03</div><div class="v">치과 임상 · 치과위생사<small>건강한마을치과의원, 샬롬치과, 사랑의 치과</small></div></div>
+  </div>
+</div></section>
+
+<section class="screen"><div class="wrap">
+  <div class="label">Data</div>
+  <h2>감이 아니라,<br><em>데이터</em>로 결정합니다.</h2>
+  <p class="lead">유입 데이터를 분석해 광고 효율을 최적화하고, 마케팅 리포트로 의료·뷰티 트렌드를 읽어 전략에 먼저 반영합니다. SQL·Python 교육과 GA4·Meta 광고 분석으로 근거를 만듭니다.</p>
+</div></section>
+
+<section class="screen alt"><div class="wrap">
+  <div class="label">System</div>
+  <h2>잘하는 사람 한 명보다,<br><em>잘하는 방식</em>을 만듭니다.</h2>
+  <p class="lead">OJT 매뉴얼, 광고 세팅 매뉴얼, 서비스 가이드를 제작해 팀 업무 퀄리티를 평준화하고, 신규 입사자를 교육했습니다.</p>
+</div></section>
+
+<section class="screen" id="case1"><div class="wrap">
+  <div class="label">대표 사례 · 퍼포먼스 마케팅</div>
+  <h2>병·의원마다 맞는 매체로,<br><em>유입</em>을 만들었습니다.</h2>
+  <div class="facts">
+    <div class="fact"><div class="k">문제</div><div class="v">진료과와 상황이 다른 병·의원마다 유입을 늘려야 했습니다.<small>치과·피부과·내과·동물병원, 개원 및 기존 병·의원</small></div></div>
+    <div class="fact"><div class="k">접근</div><div class="v">매체별 광고 세팅·운영과 데이터 분석을 함께 진행했습니다.<small>네이버·구글·당근마켓 광고, 블로그·플레이스·인스타·유튜브 채널 관리, 유입 데이터 기반 효율 최적화</small></div></div>
+    <div class="fact"><div class="k">결과</div><div class="v">병·의원 유입을 확대하고 고객사별 성과를 보고했습니다.<small>맞춤형 솔루션 제안 · 마케팅 리포트 기반 트렌드 선제 반영</small></div></div>
+  </div>
+</div></section>
+
+<section class="screen alt" id="case2"><div class="wrap">
+  <div class="label">대표 사례 · 서비스 기획</div>
+  <h2>49개 지점의 서비스를<br><em>한 기준</em>으로 맞췄습니다.</h2>
+  <div class="facts">
+    <div class="fact"><div class="k">문제</div><div class="v">지점마다 서비스 수준이 달랐고, 부진한 지점도 있었습니다.<small>광덕안정 한의원 · 서비스기획 / 지점 슈퍼바이저 (2022.04 ~ 2023.05)</small></div></div>
+    <div class="fact"><div class="k">접근</div><div class="v">모니터링 기준을 세우고, 지점별로 개선안을 만들어 컨설팅했습니다.<small>VIP 'Rock-in' 프로그램, 방문 전~후 MOT, 부진지점 개선 프로젝트, 1:1 피드백</small></div></div>
+    <div class="fact"><div class="k">결과</div><div class="v">49개 지점 활성화 프로그램을 운영하고 실제 후기 사례집을 제작했습니다.<small>신규지점 오픈 교육·현장 지원과 총괄 OJT 매뉴얼도 함께 제작</small></div></div>
+  </div>
+</div></section>
+
+<section class="screen" id="case3"><div class="wrap">
+  <div class="label">대표 사례 · 데이터 · AI</div>
+  <h2>데이터와 AI로,<br><em>일하는 방식</em>을 바꿨습니다.</h2>
+  <div class="facts">
+    <div class="fact"><div class="k">문제</div><div class="v">보도자료 작성, 광고 분석, 서비스 구현을 더 빠르고 근거 있게 해야 했습니다.</div></div>
+    <div class="fact"><div class="k">접근</div><div class="v">GPT로 작성 프로세스를 줄이고, SQL·Python·GA4·Meta 광고 데이터로 분석했습니다.<small>카드추천 서비스(Python·SQL·Flask), 뉴스 크롤링 트렌드 분석, Claude Code 기반 업무 자동화 학습</small></div></div>
+    <div class="fact"><div class="k">결과</div><div class="v">의료 보도자료·홍보 기사 작성 프로세스를 단축하고, 분석 결과를 광고 의사결정에 반영했습니다.</div></div>
+  </div>
+</div></section>
+
+<section class="screen alt" id="projects"><div class="wrap">
+  <div class="label">Projects</div>
+  <h2>전체 프로젝트.</h2>
+  <div class="plist">
+    <div class="pi"><div class="c">광고</div><div><h3>온라인 마케팅 (병·의원 퍼포먼스)</h3><p>네이버·구글·당근마켓 광고 세팅·운영, 채널 관리로 유입 확대</p></div></div>
+    <div class="pi"><div class="c">데이터</div><div><h3>Meta 광고 데이터 분석과 GPT 시각화</h3><p>광고 성과 데이터를 분석하고 GPT로 시각화해 인사이트 도출</p></div></div>
+    <div class="pi"><div class="c">데이터</div><div><h3>GA4 애널리틱스 · 구글 도구 활용 성과 분석</h3><p>GA4 세팅과 SEO·GA 학습으로 성과 측정 체계 정리</p></div></div>
+    <div class="pi"><div class="c">데이터</div><div><h3>소비분석을 통한 카드추천 서비스</h3><p>소비 데이터를 분석해 맞춤 카드를 추천 (Python · SQL · Flask)</p></div></div>
+    <div class="pi"><div class="c">데이터</div><div><h3>뉴스 크롤링을 통한 트렌드 분석</h3><p>뉴스 데이터를 수집·텍스트마이닝해 트렌드 키워드 파악</p></div></div>
+    <div class="pi"><div class="c">기획</div><div><h3>원업 광고 세팅 · 마케팅 업무 매뉴얼</h3><p>광고 세팅과 업무 프로세스를 문서화해 팀 업무 평준화</p></div></div>
+    <div class="pi"><div class="c">기획</div><div><h3>[치과] GDAJ 업무 매뉴얼 제작</h3><p>치과 현장 업무 흐름을 정리한 운영 매뉴얼</p></div></div>
+    <div class="pi"><div class="c">기획</div><div><h3>광덕안정 오픈지원 안내 매뉴얼</h3><p>신규지점 오픈 교육·현장 지원을 위한 총괄 OJT 매뉴얼</p></div></div>
+    <div class="pi"><div class="c">AI</div><div><h3>AI를 통해 비슷하게 이미지 생성하기</h3><p>생성형 AI로 레퍼런스와 유사한 마케팅 이미지 제작 실습</p></div></div>
+    <div class="pi"><div class="c">AI</div><div><h3>바이브코딩 · 생성형 AI 실무 자동화</h3><p>Claude Code 등으로 실무 업무를 자동화·고도화</p></div></div>
+  </div>
+</div></section>
+
+<section class="screen" id="skills"><div class="wrap sk">
+  <div class="label">Skills</div>
+  <h2>가진 도구들.</h2>
+  <h3>HARD SKILLS</h3>
+  <div class="chips"><span class="chip">SQL</span><span class="chip">데이터 분석</span><span class="chip">Flask</span><span class="chip">GA4</span><span class="chip">퍼포먼스 광고</span></div>
+  <h3>SOFT SKILLS</h3>
+  <div class="chips"><span class="chip">커뮤니케이션</span><span class="chip">꼼꼼함</span><span class="chip">교육</span><span class="chip">스케줄링</span></div>
+  <h3>TOOLS</h3>
+  <div class="chips"><span class="chip">Oracle</span><span class="chip">Python</span><span class="chip">VS Code</span><span class="chip">PowerPoint</span><span class="chip">Excel</span><span class="chip">Word</span></div>
+</div></section>
+
+<section class="screen alt"><div class="wrap">
+  <div class="label">Credentials</div>
+  <h2>자격과 배움.</h2>
+  <div class="facts">
+    <div class="fact"><div class="k">자격증</div><div class="v">치과위생사 (2015.11)<small>ITQ 아래한글·한글엑셀·한글파워포인트 A등급 (2021.06) · 2종 보통운전면허</small></div></div>
+    <div class="fact"><div class="k">학력</div><div class="v">국가평생교육진흥원대학교 (2022.03 ~)<small>진주보건대학교 (2012.02 ~ 2015.02)</small></div></div>
+    <div class="fact"><div class="k">교육</div><div class="v">ITWILL 데이터 분석<small>SQL · Python · R · TextMining · DeepLearning</small></div></div>
+    <div class="fact"><div class="k">교육</div><div class="v">윈스펙 생성형 AI 활용 마케팅 13기<small>2025.12 ~ 2026.01</small></div></div>
+  </div>
+</div></section>
+
+<section class="screen"><div class="wrap">
+  <div class="label">How I work</div>
+  <h2>약속한 기한은<br><em>반드시</em> 지킵니다.</h2>
+  <p class="lead">문제가 생겨도 그 상황 안에서 효율적인 방향을 찾고, 부족한 부분은 빠르게 학습해 익힙니다. 사소한 곳에서 기쁨을 찾는 긍정과 꾸준한 자기계발로 매시간 나아갑니다.</p>
+</div></section>
+
+<section class="screen alt" id="contact"><div class="wrap end">
+  <div class="label">Contact</div>
+  <h2>함께 일하고 싶으시다면,<br><em>편하게 연락</em> 주세요.</h2>
+  <p class="lead">서울 광진구</p>
+  <div class="mail"><code id="addr">heee6688@naver.com</code><button type="button" id="copy">주소 복사</button></div>
+  <div class="links">
+    <a href="https://blog.naver.com/heee6688" target="_blank" rel="noopener">Naver Blog</a>
+    <a href="https://www.instagram.com/924is92" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</div></section>
+
+<footer>© 2026 Marketing Portfolio</footer>
+
+<script>
+(function(){
+  var btn=document.getElementById('copy'),addr=document.getElementById('addr');
+  btn.addEventListener('click',function(){
+    function done(){btn.textContent='복사됨';setTimeout(function(){btn.textContent='주소 복사'},1800)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(addr);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='주소를 선택했어요';setTimeout(function(){btn.textContent='주소 복사'},1800)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(addr.textContent).then(done,fallback)}else{fallback()}
+  });
+})();
+</script>

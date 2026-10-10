@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketing PM Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#fff; --ink:#1b1b1f; --muted:#6b6b76; --line:#e8e5de;
+  --accent:#2f5bff; --accent-soft:#eaeeff; --warm:#ff7a45;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:24px}
+nav{position:sticky;top:0;z-index:10;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+nav b{font-weight:900;letter-spacing:-.02em}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px;color:var(--muted)}
+nav ul a:hover{color:var(--accent)}
+@media(max-width:640px){nav ul{display:none}}
+
+section{padding-block:84px}
+.eyebrow{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+h2{font-size:clamp(26px,4vw,36px);margin:0 0 36px;letter-spacing:-.03em;line-height:1.3}
+
+/* hero */
+.hero{padding-block:96px 72px}
+.hero h1{font-size:clamp(34px,6.4vw,64px);line-height:1.2;letter-spacing:-.04em;font-weight:900;margin:0 0 22px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.lead{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:640px;margin:0 0 30px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:7px 14px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:500}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{padding:13px 24px;border-radius:12px;font-weight:700;font-size:15px;border:1.5px solid var(--ink)}
+.btn.primary{background:var(--ink);color:#fff}
+.btn:hover{transform:translateY(-2px);transition:.2s}
+
+/* strengths */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px}
+.card .ico{font-size:28px;margin-bottom:12px}
+.card h3{margin:0 0 8px;font-size:18px;letter-spacing:-.02em}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+
+/* career */
+.timeline{position:relative;padding-left:28px;border-left:2px solid var(--line)}
+.job{position:relative;margin-bottom:40px}
+.job::before{content:"";position:absolute;left:-36px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+.job.past::before{background:var(--muted)}
+.job .period{font-size:13px;color:var(--muted);font-weight:500}
+.job h3{margin:2px 0 2px;font-size:22px;letter-spacing:-.02em}
+.job .role{color:var(--accent);font-weight:700;font-size:14px;margin-bottom:14px}
+.job ul{margin:0;padding-left:18px;color:#3b3b44;font-size:15px}
+.job li{margin-bottom:5px}
+.job li b{color:var(--ink)}
+
+/* projects */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filters button{font:inherit;font-size:14px;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--muted)}
+.filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.proj{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.p{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.p:hover{transform:translateY(-4px);box-shadow:0 14px 30px -16px rgba(0,0,0,.25)}
+.p .thumb{height:120px;display:flex;align-items:flex-end;padding:16px;font-size:34px;color:#fff}
+.p .body{padding:20px 22px 24px}
+.p .cat{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.p h3{margin:0 0 8px;font-size:17px;line-height:1.4;letter-spacing:-.02em}
+.p p{margin:0;font-size:14px;color:var(--muted)}
+.p.hide{display:none}
+.note{margin-top:20px;font-size:13px;color:var(--muted)}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.skills .card h3{font-size:15px;color:var(--muted);font-weight:700;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;background:var(--bg)}
+
+/* edu / cert */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.list li:last-child{border:0}
+.list span{color:var(--muted);white-space:nowrap;font-size:13px}
+
+/* contact */
+.contact{background:var(--ink);color:#fff;border-radius:28px;padding:56px 36px;text-align:center}
+.contact h2{margin-bottom:12px}
+.contact p{color:#b9b9c4;margin:0 0 26px}
+.contact .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.contact a{padding:12px 22px;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:14.5px}
+.contact a.ghost{background:transparent;color:#fff;border:1.5px solid #555}
+@media print{
+  @page{size:A4;margin:12mm}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  nav,.btns,.filters,.note{display:none!important}
+  section{padding-block:28px;break-inside:auto}
+  .hero{padding-block:24px 20px}
+  .card,.p,.job,.contact{break-inside:avoid}
+  .p:hover{transform:none;box-shadow:none}
+  .p .thumb{height:70px}
+  .proj{grid-template-columns:repeat(2,1fr)}
+  h2{margin-bottom:18px}
+}
+footer{text-align:center;padding:36px 0 56px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <b>Marketing Portfolio</b>
+  <ul>
+    <li><a href="#strength">강점</a></li>
+    <li><a href="#career">경력</a></li>
+    <li><a href="#projects">프로젝트</a></li>
+    <li><a href="#skills">스킬</a></li>
+    <li><a href="#contact">연락처</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Marketing PM · Performance Marketer</div>
+  <h1>현장의 경험을<br><em>체계적인 기획</em>으로,<br>데이터로 증명하는 마케터</h1>
+  <p class="lead">병·의원 서비스 기획과 교육 현장에서 시작해, 퍼포먼스 마케팅과 데이터 분석까지 영역을 넓혀온 Marketing PM입니다. 현장을 알기에 실행 가능한 전략을 만들고, 데이터로 광고 효율을 끌어올립니다.</p>
+  <div class="tags">
+    <span class="tag">퍼포먼스 마케팅</span><span class="tag">병·의원 마케팅 컨설팅</span>
+    <span class="tag">데이터 분석</span><span class="tag">SNS 채널 운영</span><span class="tag">서비스 기획·교육</span>
+  </div>
+  <div class="btns">
+    <a class="btn primary" href="#projects">프로젝트 보기</a>
+    <a class="btn" href="#contact">연락하기</a>
+  </div>
+</div></header>
+
+<section id="strength"><div class="wrap">
+  <div class="eyebrow">Why me</div>
+  <h2>폭넓은 경험이 만드는 세 가지 강점</h2>
+  <div class="grid3">
+    <div class="card"><div class="ico">🏥</div><h3>의료 현장을 아는 마케터</h3><p>치과위생사 출신으로 치과·한의원 현장 근무와 지점 오픈 지원을 경험했습니다. 의료 서비스의 고객 여정을 이해하고 마케팅에 반영합니다.</p></div>
+    <div class="card"><div class="ico">📊</div><h3>데이터로 의사결정</h3><p>유입 데이터를 분석해 광고 효율을 최적화하고, SQL·Python 교육 이수와 GA4·Meta 광고 분석 학습으로 근거 있는 전략을 제안합니다.</p></div>
+    <div class="card"><div class="ico">📚</div><h3>체계화와 교육</h3><p>OJT 매뉴얼, 광고 세팅 매뉴얼, 서비스 가이드를 제작해 팀 업무 퀄리티를 평준화하고 신규 입사자를 교육했습니다.</p></div>
+  </div>
+</div></section>
+
+<section id="career" style="background:#f4f2ec"><div class="wrap">
+  <div class="eyebrow">Career</div>
+  <h2>경력</h2>
+  <div class="timeline">
+
+    <div class="job">
+      <div class="period">2024.04 ~ 2026.05</div>
+      <h3>원업크리에이티브</h3>
+      <div class="role">Marketing PM</div>
+      <ul>
+        <li><b>퍼포먼스 마케팅</b> · 네이버, 구글, 당근마켓 등 매체별 광고 세팅·운영으로 병·의원 유입 극대화</li>
+        <li><b>브랜드 채널 관리</b> · 네이버 블로그/플레이스, 인스타그램, 유튜브 운영으로 브랜드 신뢰도 제고</li>
+        <li><b>마케팅 컨설팅</b> · 개원 및 기존 병·의원(치과, 피부과, 내과, 동물병원 등) 맞춤형 솔루션 제안 및 성과 보고</li>
+        <li><b>콘텐츠·홍보물 기획</b> · 팜플렛, 리플렛, 배너, 원내 안내문 등 온·오프라인 통합 시각 자료 기획 및 가이드 제작</li>
+        <li><b>AI 활용</b> · GPT로 의료 전문 보도자료·홍보 기사 작성 프로세스 단축</li>
+        <li><b>데이터 분석</b> · 마케팅 리포트로 의료/뷰티 트렌드를 파악해 선제적으로 전략에 반영</li>
+        <li><b>조직관리</b> · 신입 OJT 교육 매뉴얼 및 내부 운영 매뉴얼 제작</li>
+      </ul>
+    </div>
+
+    <div class="job past">
+      <div class="period">2022.04 ~ 2023.05 (13개월)</div>
+      <h3>광덕안정 한의원</h3>
+      <div class="role">서비스기획 · 서비스강화팀 / 지점 슈퍼바이저</div>
+      <ul>
+        <li><b>신규지점 오픈 지원</b> · 데스크·치료실·입원실 본사교육 기획·운영, 현장 체재 컨설팅, 총괄 OJT 매뉴얼 제작</li>
+        <li><b>서비스 모니터링</b> · 모니터링 기준 수립·운영, 서비스 가이드 제작, 1:1 피드백</li>
+        <li><b>점포 활성화 프로그램 (49개 지점)</b> · VIP 고객 'Rock-in' 프로그램(적립·보상 기준) 기획, VIP Goods 제작·배포, 방문 전~후 MOT 수립</li>
+        <li><b>부진지점 개선 프로젝트</b> · 모니터링 → 개선안 작성 → 지점 컨설팅, 실제 후기 사례집 제작</li>
+        <li><b>사내카페 '리프레자' 기획·운영</b> · 개설·신고, 입주사 대상 매출 상승 이벤트, 계약·정산, 레시피 제작</li>
+      </ul>
+    </div>
+
+    <div class="job past">
+      <div class="period">2021.08 ~ 2022.01</div>
+      <h3>암사도시재생사회적협동조합</h3>
+      <div class="role">상상나루 카페래 · 프리랜서</div>
+      <ul><li>친환경 카페 기획 및 운영관리</li></ul>
+    </div>
+
+    <div class="job past">
+      <div class="period">2017.06 ~ 2021.03</div>
+      <h3>치과 임상 경력 (치과위생사)</h3>
+      <div class="role">샬롬치과 · 건강한마을치과의원 · 사랑의 치과</div>
+      <ul><li>약 4년 이상의 치과 현장 경험 — 환자 응대와 진료 프로세스 이해가 현재 의료 마케팅의 기반</li></ul>
+    </div>
+
+  </div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <div class="eyebrow">Projects</div>
+  <h2>주요 프로젝트</h2>
+  <div class="filters" id="filters">
+    <button class="on" data-f="all">전체</button>
+    <button data-f="ad">광고·마케팅</button>
+    <button data-f="data">데이터 분석</button>
+    <button data-f="manual">매뉴얼·기획</button>
+    <button data-f="ai">AI 활용</button>
+  </div>
+  <div class="proj" id="proj">
+    <div class="p" data-c="ad"><div class="thumb" style="background:linear-gradient(135deg,#2f5bff,#6f8bff)">📣</div><div class="body"><div class="cat">광고·마케팅</div><h3>온라인 마케팅 (병·의원 퍼포먼스)</h3><p>네이버·구글·당근마켓 광고 세팅과 운영, 채널 관리를 통한 병·의원 유입 확대.</p></div></div>
+    <div class="p" data-c="data ad"><div class="thumb" style="background:linear-gradient(135deg,#0ea5a4,#5eead4)">📈</div><div class="body"><div class="cat">데이터 분석</div><h3>Meta 광고 데이터 분석과 GPT 시각화</h3><p>Meta 광고 성과 데이터를 분석하고 GPT로 시각화해 인사이트를 도출.</p></div></div>
+    <div class="p" data-c="data"><div class="thumb" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">🔎</div><div class="body"><div class="cat">데이터 분석</div><h3>GA4 애널리틱스 · 구글 도구 활용 성과 분석</h3><p>GA4 세팅과 SEO·GA 학습을 바탕으로 마케팅 성과 측정 체계를 정리.</p></div></div>
+    <div class="p" data-c="data"><div class="thumb" style="background:linear-gradient(135deg,#f59e0b,#fcd34d)">💳</div><div class="body"><div class="cat">데이터 분석</div><h3>소비분석을 통한 카드추천 서비스</h3><p>소비 데이터를 분석해 맞춤 카드를 추천하는 서비스 구현 (Python · SQL · Flask).</p></div></div>
+    <div class="p" data-c="data"><div class="thumb" style="background:linear-gradient(135deg,#ef4444,#fca5a5)">📰</div><div class="body"><div class="cat">데이터 분석</div><h3>뉴스 크롤링을 통한 트렌드 분석</h3><p>뉴스 데이터를 수집·텍스트마이닝해 트렌드 키워드를 파악.</p></div></div>
+    <div class="p" data-c="manual ad"><div class="thumb" style="background:linear-gradient(135deg,#1b1b1f,#52525b)">⚙️</div><div class="body"><div class="cat">매뉴얼·기획</div><h3>원업 광고 세팅 매뉴얼 · 마케팅 업무 매뉴얼</h3><p>광고 세팅과 마케팅 업무 프로세스를 문서화해 팀 업무 퀄리티를 평준화.</p></div></div>
+    <div class="p" data-c="manual"><div class="thumb" style="background:linear-gradient(135deg,#16a34a,#86efac)">🦷</div><div class="body"><div class="cat">매뉴얼·기획</div><h3>[치과] GDAJ 업무 매뉴얼 제작</h3><p>치과 현장 업무 흐름을 정리한 운영 매뉴얼 제작.</p></div></div>
+    <div class="p" data-c="manual"><div class="thumb" style="background:linear-gradient(135deg,#ff7a45,#ffb48f)">🏯</div><div class="body"><div class="cat">매뉴얼·기획</div><h3>광덕안정 오픈지원 안내 매뉴얼</h3><p>신규지점 오픈 교육·현장 지원을 위한 총괄 OJT 매뉴얼.</p></div></div>
+    <div class="p" data-c="ai"><div class="thumb" style="background:linear-gradient(135deg,#db2777,#f9a8d4)">🎨</div><div class="body"><div class="cat">AI 활용</div><h3>AI를 통해 비슷하게 이미지 생성하기</h3><p>생성형 AI로 레퍼런스와 유사한 마케팅 이미지를 만드는 실습.</p></div></div>
+    <div class="p" data-c="ai"><div class="thumb" style="background:linear-gradient(135deg,#0f172a,#2f5bff)">🤖</div><div class="body"><div class="cat">AI 활용</div><h3>바이브코딩 · 생성형 AI 실무 자동화</h3><p>Claude Code 등 생성형 AI로 실무 업무를 자동화·고도화하는 학습과 적용.</p></div></div>
+  </div>
+  <p class="note">※ 프로젝트별 상세 내용(역할·기여도·기간·성과 수치)은 추가하면 더 설득력 있는 포트폴리오가 됩니다.</p>
+</div></section>
+
+<section id="skills" style="background:#f4f2ec"><div class="wrap">
+  <div class="eyebrow">Skills</div>
+  <h2>스킬 & 자격</h2>
+  <div class="skills">
+    <div class="card"><h3>HARD SKILLS</h3><div class="chips"><span class="chip">SQL</span><span class="chip">데이터 분석</span><span class="chip">Flask</span><span class="chip">GA4</span><span class="chip">퍼포먼스 광고</span></div></div>
+    <div class="card"><h3>SOFT SKILLS</h3><div class="chips"><span class="chip">커뮤니케이션</span><span class="chip">꼼꼼함</span><span class="chip">교육</span><span class="chip">스케줄링</span></div></div>
+    <div class="card"><h3>TOOLS</h3><div class="chips"><span class="chip">Oracle</span><span class="chip">Python</span><span class="chip">VS Code</span><span class="chip">PowerPoint</span><span class="chip">Excel</span><span class="chip">Word</span></div></div>
+  </div>
+  <div class="two" style="margin-top:18px">
+    <div class="card"><h3>자격증</h3>
+      <ul class="list">
+        <li>치과위생사 <span>2015.11</span></li>
+        <li>ITQ 아래한글 A등급 <span>2021.06</span></li>
+        <li>ITQ 한글엑셀 A등급 <span>2021.06</span></li>
+        <li>ITQ 한글파워포인트 A등급 <span>2021.06</span></li>
+        <li>2종 보통운전면허 <span>2011.11</span></li>
+      </ul></div>
+    <div class="card"><h3>학력 · 교육</h3>
+      <ul class="list">
+        <li>국가평생교육진흥원대학교 (4년제) <span>2022.03 ~</span></li>
+        <li>진주보건대학교 <span>2012.02 ~ 2015.02</span></li>
+        <li>ITWILL 데이터 분석 (SQL·Python·R·TextMining·DeepLearning)</li>
+        <li>윈스펙 생성형 AI 활용 마케팅 13기 <span>2025.12 ~ 2026.01</span></li>
+      </ul></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">How I work</div>
+  <h2>일하는 방식</h2>
+  <div class="grid3">
+    <div class="card"><h3>🔍 문제 속에서 길을 찾습니다</h3><p>문제가 생겨도 그 상황 안에서 효율적인 진행 방향을 찾습니다.</p></div>
+    <div class="card"><h3>⏱ 기한은 반드시 지킵니다</h3><p>함께 정한 기한은 반드시 지키며, 부족한 부분은 빠르게 학습해 습득합니다.</p></div>
+    <div class="card"><h3>🌱 꾸준히 성장합니다</h3><p>사소한 곳에서 기쁨을 느끼는 긍정적 사고로, 꾸준한 자기계발로 매시간 나아갑니다.</p></div>
+  </div>
+  <p style="margin-top:28px;color:var(--muted);font-size:14.5px">취미로 네이버 블로그와 인스타그램을 운영하며 제품·맛집을 리뷰하고, 크로스핏·러닝·수영으로 체력을 관리합니다.</p>
+</div></section>
+
+<section id="contact" style="padding-top:20px"><div class="wrap">
+  <div class="contact">
+    <h2>함께 일하고 싶으시다면</h2>
+    <p>편하게 연락 주세요. 서울 광진구</p>
+    <div class="links">
+      <a href="mailto:heee6688@naver.com">heee6688@naver.com</a>
+      <a class="ghost" href="https://blog.naver.com/heee6688" target="_blank" rel="noopener">Naver Blog</a>
+      <a class="ghost" href="https://www.instagram.com/924is92" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</div></section>
+
+<footer>© 2026 Marketing Portfolio</footer>
+
+<script>
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('#proj .p').forEach(p=>p.classList.toggle('hide',f!=='all'&&!p.dataset.c.split(' ').includes(f)));
+});
+</script>
+</body>
+</html>
