@@ -62,6 +62,22 @@ h1 em,h2 em{font-style:normal;color:var(--blue)}
 
 .end{text-align:center}
 .end .lead{margin-inline:auto}
+.cform{max-width:560px;margin:40px auto 0;text-align:left;display:grid;gap:16px}
+.cform .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media(max-width:560px){.cform .row2{grid-template-columns:1fr}}
+.fld{display:grid;gap:6px;min-width:0}
+.fld label{font-size:14px;font-weight:700}
+.fld label i{font-style:normal;color:var(--blue)}
+.fld input,.fld textarea{font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;width:100%;min-width:0;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.25)}
+.fld.err input,.fld.err textarea{border-color:#e5484d}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.submit{font:inherit;font-size:16px;font-weight:700;padding:16px;border:0;border-radius:14px;background:var(--blue);color:#fff;cursor:pointer;transition:background .2s}
+.submit:hover:not(:disabled){background:#1b64da}
+.submit:disabled{opacity:.6;cursor:not-allowed}
+.status{margin:0;padding:14px 16px;border-radius:12px;font-size:15px;font-weight:500;background:#fff;border:1.5px solid var(--line)}
+.status.ok{border-color:var(--blue);color:var(--blue)}
+.status.fail{border-color:#e5484d;color:#e5484d}
 .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:44px}
 .links a{padding:15px 26px;border-radius:14px;background:var(--soft);font-weight:700;font-size:15px}
 .links a.main{background:var(--ink);color:#fff}
@@ -73,7 +89,7 @@ footer{text-align:center;padding:36px 0 52px;color:var(--faint);font-size:13px}
 @media print{
   @page{size:A4;margin:14mm}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  nav,.cta{display:none!important}
+  nav,.cta,.cform{display:none!important}
   .reveal{opacity:1!important;transform:none!important}
   .screen{min-height:0;padding-block:34px;break-inside:avoid}
   .screen.alt{background:#fff}
@@ -219,7 +235,22 @@ footer{text-align:center;padding:36px 0 52px;color:var(--faint);font-size:13px}
 <section class="screen" id="contact"><div class="wrap end reveal">
   <div class="label">Contact</div>
   <h2>함께 일하고 싶으시다면,<br><em>편하게 연락</em> 주세요.</h2>
-  <p class="lead">서울 광진구 · heee6688@naver.com</p>
+  <p class="lead">강의·협업 문의를 남겨 주시면 확인 후 회신드립니다.</p>
+  <form class="cform" id="cform" novalidate>
+    <div class="row2">
+      <div class="fld"><label for="f-name">이름 <i>*</i></label><input id="f-name" name="name" type="text" autocomplete="name" maxlength="100" required></div>
+      <div class="fld"><label for="f-email">이메일 <i>*</i></label><input id="f-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+    </div>
+    <div class="row2">
+      <div class="fld"><label for="f-phone">전화번호</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" maxlength="50" placeholder="010-0000-0000"></div>
+      <div class="fld"><label for="f-company">회사, 직함</label><input id="f-company" name="company" type="text" autocomplete="organization" maxlength="200" placeholder="예: OO병원 / 마케팅팀장"></div>
+    </div>
+    <div class="fld"><label for="f-message">강의 문의 내용 <i>*</i></label><textarea id="f-message" name="message" rows="6" maxlength="5000" required></textarea></div>
+    <div class="hp" aria-hidden="true"><label for="f-web">웹사이트</label><input id="f-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+    <button type="submit" class="submit" id="submit">문의 보내기</button>
+    <p class="status" id="status" role="status" aria-live="polite" hidden></p>
+  </form>
+  <p class="lead" style="font-size:15px">메일로 직접 보내셔도 됩니다. 서울 광진구 · heee6688@naver.com</p>
   <div class="links">
     <a class="main" href="mailto:heee6688@naver.com">이메일 보내기</a>
     <a href="https://blog.naver.com/heee6688" target="_blank" rel="noopener">Naver Blog</a>
@@ -232,6 +263,47 @@ footer{text-align:center;padding:36px 0 52px;color:var(--faint);font-size:13px}
 <script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+(function(){
+  var ENDPOINT='https://script.google.com/macros/s/AKfycbyudI_nL9GQe78lhfUZGoq7Y4rtJQ1uKyFxLTSKYpGiBzYsopUs_A7oWYGwn8cV7AJ4Nw/exec';
+  var form=document.getElementById('cform'),submit=document.getElementById('submit'),status=document.getElementById('status');
+  var sending=false;
+  function show(kind,msg){status.hidden=false;status.className='status '+kind;status.textContent=msg}
+  function mark(el,bad){el.closest('.fld').classList.toggle('err',bad)}
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    if(sending)return;
+    var f=form.elements,name=f.name.value.trim(),email=f.email.value.trim(),message=f.message.value.trim();
+    var okEmail=/^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/.test(email);
+    mark(f.name,!name);mark(f.email,!okEmail);mark(f.message,!message);
+    if(!name||!okEmail||!message){
+      show('fail',!name?'이름을 입력해 주세요.':!okEmail?'이메일 형식을 확인해 주세요.':'문의 내용을 입력해 주세요.');
+      (!name?f.name:!okEmail?f.email:f.message).focus();return;
+    }
+    sending=true;submit.disabled=true;submit.textContent='보내는 중…';
+    show('',"문의를 전송하고 있습니다. 잠시만 기다려 주세요.");
+    var payload={name:name,email:email,phone:f.phone.value.trim(),company:f.company.value.trim(),message:message,website:f.website.value};
+    var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},25000);
+    // Content-Type을 text/plain으로 두면 사전 요청(preflight) 없이 Apps Script로 전송된다.
+    fetch(ENDPOINT,{method:'POST',body:JSON.stringify(payload),signal:ctrl.signal})
+      .then(function(r){return r.json()})
+      .then(function(res){
+        if(res&&res.ok){
+          form.reset();
+          show('ok','문의가 접수되었습니다. 입력하신 이메일로 접수 확인 메일을 보내 드렸습니다.');
+        }else{
+          show('fail',(res&&res.error)||'전송에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+        }
+      })
+      .catch(function(){
+        show('fail','전송 결과를 확인하지 못했습니다. 잠시 후 다시 시도하거나 아래 이메일로 직접 보내 주세요.');
+      })
+      .then(function(){
+        clearTimeout(timer);sending=false;submit.disabled=false;submit.textContent='문의 보내기';
+      });
+  });
+  form.addEventListener('input',function(ev){var fld=ev.target.closest&&ev.target.closest('.fld');if(fld)fld.classList.remove('err')});
+})();
 </script>
 </body>
 </html>
