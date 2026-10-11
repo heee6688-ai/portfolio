@@ -265,7 +265,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 (function(){
-  var ENDPOINT='https://script.google.com/macros/s/AKfycbyudI_nL9GQe78lhfUZGoq7Y4rtJQ1uKyFxLTSKYpGiBzYsopUs_A7oWYGwn8cV7AJ4Nw/exec';
+  var ENDPOINT='https://script.google.com/macros/s/AKfycbzUtovvwQqljyzwtuqQXrTiROiRXhb4U6RMNp3zudVASmmqLM64QFS4cqE8K06OCQ-NIA/exec';
   var form=document.getElementById('cform'),submit=document.getElementById('submit'),status=document.getElementById('status');
   var sending=false;
   function show(kind,msg){status.hidden=false;status.className='status '+kind;status.textContent=msg}
